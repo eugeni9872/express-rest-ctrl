@@ -11,8 +11,9 @@ let METHODS = ['put', 'post','delete', 'get']
 class Main{
 
     /**
-     * @param {String} path - The route path
-     * @param {*} Controller - The class that control this router
+     * @param {String} path The route path
+     * @param {Class} Controller The class that control this router
+     * @returns Main
      */
     addRoute(path, Controller){
         if(!this.app) {
@@ -34,6 +35,7 @@ class Main{
 
     /**
      * @param {Express} app - Express instance
+     * @returns Main
      */
     setupApp(app){
         if(!app){
