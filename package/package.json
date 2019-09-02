@@ -1,0 +1,31 @@
+{
+  "name": "express-rest-ctrl",
+  "version": "1.0.0",
+  "author": "Eugeni Bejan",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon ./server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "description": "Express rest controller",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugeni9872/express-rest-ctrl.git"
+  },
+  "keywords": [
+    "express",
+    "rest",
+    "controller",
+    "express-controller"
+  ],
+  "bugs": {
+    "url": "https://github.com/eugeni9872/express-rest-ctrl/issues"
+  },
+  "homepage": "https://github.com/eugeni9872/express-rest-ctrl#readme"
+}
