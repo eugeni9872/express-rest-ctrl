@@ -1,5 +1,5 @@
 {
-  "name": "@ebejan/express-ctrl",
+  "name": "@ebejan/express-rest-ctrl",
   "version": "1.0.0",
   "author": "Eugeni Bejan",
   "main": "index.js",
