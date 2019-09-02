@@ -1,17 +1,18 @@
 const express = require('express')
 
-let METHODS = ['put', 'post','delete', 'get']
+//Later we check if the controlelr has this methods
+//if the class implements this methods, we register the route
+// for example if the class has only get and post method, the resource will response only for post and get requests
+let METHODS = ['put', 'post','delete', 'get']  
 
 /**
- * Represents a book.
- * @constructor
+ * @description Class that is responsible for creating the application, registering routes with their controllers.
  */
 class Main{
 
     /**
-     * 
      * @param {String} path - The route path
-     * @param {*} Controller - The class that controll this router
+     * @param {*} Controller - The class that control this router
      */
     addRoute(path, Controller){
         if(!this.app) {
@@ -22,7 +23,7 @@ class Main{
             let ctrl = new Controller()
             METHODS.forEach((method) => {
                 if(ctrl[method]){
-                    this.app[method](path, ctrl[method])
+                    this.app[method](path, ctrl[method]) // Registry the path, method and they controller
                 }
             })
             return this;
@@ -32,7 +33,6 @@ class Main{
     }
 
     /**
-     * 
      * @param {Express} app - Express instance
      */
     setupApp(app){
@@ -44,7 +44,6 @@ class Main{
     }
 
     /**
-     * 
      * @param {Number} port The port for listen requests
      */
     runServer(port=3001) {
