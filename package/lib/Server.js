@@ -3,7 +3,7 @@ const express = require('express')
 //Later we check if the controlelr has this methods
 //if the class implements this methods, we register the route
 // for example if the class has only get and post method, the resource will response only for post and get requests
-let METHODS = ['put', 'post','delete', 'get']  
+let METHODS = ['get','post', 'put', 'delete', 'connect', 'options', 'trace', 'path', 'head']
 
 /**
  * @description Class that is responsible for creating the application, registering routes with their controllers.
@@ -20,7 +20,7 @@ class Server{
         if(!this.app) {
             throw Error("The app was not created, call create method for initialize the app")
         }
-        
+
         try {
             let ctrl = new Controller()
             if(ctrl.config) { // If the controller has config object to apply it
