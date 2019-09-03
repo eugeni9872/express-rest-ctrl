@@ -9,7 +9,9 @@ let METHODS = ['get','post', 'put', 'delete', 'connect', 'options', 'trace', 'pa
  * @description Class that is responsible for creating the application, registering routes with their controllers.
  */
 class Server{
-
+    constructor(ExpressApp){
+        this.app = ExpressApp;
+    }
     /**
      * @param {String} path The route path
      * @param {Class} Controller The class that control this router
@@ -70,6 +72,7 @@ class Server{
 
     /**
      * @description Enable body json parse
+     * @returns Server
      */
     enableJSON(){
         this.app.use(express.json())
@@ -79,9 +82,25 @@ class Server{
 
     /**
      * @description Enable body html parse
+     * @returns Server
      */
     enableFORM(){
         this.app.use(express.urlencoded())
+        return this;
+    }
+
+    /**
+     * @param {String} path
+     * @param {Function} middleware
+     * @returns Server
+     */
+    setMiddleware(path, middleware) {
+        if(!path) {
+            this.app.use(middleware)
+        } else{
+            this.app.use(path, middleware)
+        }
+        return this;
     }
 
     /**
@@ -89,8 +108,7 @@ class Server{
      */
     static create(){
         let app = express()
-        let _Server = new Server()
-        _Server.setupApp(app)
+        let _Server = new Server(app)
         return _Server
     }
 }
