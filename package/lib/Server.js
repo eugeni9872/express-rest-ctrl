@@ -13,15 +13,26 @@ class Server{
     /**
      * @param {String} path The route path
      * @param {Class} Controller The class that control this router
+     * @param {Object} config Object with config options
      * @returns Server
      */
-    addRoute(path, Controller){
+    addRoute(path, Controller, config={}){
         if(!this.app) {
             throw Error("The app was not created, call create method for initialize the app")
         }
 
         try {
             let ctrl = new Controller()
+            if(ctrl.config) { // If the controller has config object to apply it
+                let {config} = ctrl;
+                //See if middleware is set
+                if(config.middleware) {
+                    if(Array.isArray(config.middleware)) {
+                        this.app.use(path, config.middleware)
+                    }
+                }
+            }
+
             METHODS.forEach((method) => {
                 if(ctrl[method]){
                     this.app[method](path, ctrl[method]) // Registry the path, method and they controller
@@ -32,6 +43,7 @@ class Server{
             throw error;
         }
     }
+
 
     /**
      * @param {Express} app - Express instance
