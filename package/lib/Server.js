@@ -20,7 +20,7 @@ class Server{
         if(!this.app) {
             throw Error("The app was not created, call create method for initialize the app")
         }
-
+        
         try {
             let ctrl = new Controller()
             if(ctrl.config) { // If the controller has config object to apply it
@@ -65,6 +65,23 @@ class Server{
             console.log(`App run in ${port}`)
         })
         return this;
+    }
+
+
+    /**
+     * @description Enable body json parse
+     */
+    enableJSON(){
+        this.app.use(express.json())
+        return this;
+    }
+
+
+    /**
+     * @description Enable body html parse
+     */
+    enableFORM(){
+        this.app.use(express.urlencoded())
     }
 
     /**
