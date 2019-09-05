@@ -4,7 +4,11 @@
   "repository": "https://github.com/eugeni9872/express-rest-ctrl.git",
   "author": "Eugeni Bejan <ebejan@iesjoandaustria.org>",
   "license": "MIT",
+  "scripts": {
+    "docs": "node ./docs/docs.js"
+  },
   "devDependencies": {
-    "doxdox": "^3.0.0"
+    "doxdox": "^3.0.0",
+    "nodemon": "^1.19.2"
   }
 }
