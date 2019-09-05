@@ -34,7 +34,7 @@ class Server{
                 let {config} = Controller;
                 //See if middleware is set
                 if(config.middleware) {
-                    if(Array.isArray(config.middleware)) {
+                    if(Array.isArray(config.middleware) || typeof config.middleware === 'function') {
                         this.app.use(path, config.middleware)
                     }
                 }
@@ -52,17 +52,6 @@ class Server{
     }
 
 
-    /**
-     * @param {Express} app - Express instance
-     * @returns Main
-     */
-    setupApp(app){
-        if(!app){
-            throw Error("No app instance found")
-        }
-        this.app = app;
-        return this;
-    }
 
     /**
      * @param {Number} port The port for listen requests
@@ -76,7 +65,7 @@ class Server{
 
 
     /**
-     * @description Enable body json parse
+     * @description Enable body json parser
      * @returns Server
      */
     enableJSON(){
@@ -86,7 +75,7 @@ class Server{
 
 
     /**
-     * @description Enable body html parse
+     * @description Enable body html parser
      * @returns Server
      */
     enableFORM(){
