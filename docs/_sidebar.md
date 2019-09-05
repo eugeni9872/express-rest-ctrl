@@ -2,4 +2,4 @@
 * [Home](/)
 * [Installation](/install)
 * [How to use](/howto)
-* [Main](main.md)
+* [Server](server.md)

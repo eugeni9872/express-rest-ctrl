@@ -1,38 +1,29 @@
-# express-rest-ctrl *1.0.0*
+# Server
 
-
+It is the main class that takes care of all the logic of the package like adding route, middleware and running the server
 
 ### package/lib/Server.js
 
 
-#### new Server() 
+#### class Server
 
 Class that is responsible for creating the application, registering routes with their controllers.
-
-
-
-
 
 
 ##### Returns
 
 
-- `Void`
+- `void`
 
 
 
 #### Server.constructor(ExpressApp) 
 
-
-
-
-
-
 ##### Parameters
 
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| ExpressApp | `Express`  |  | &nbsp; |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| ExpressApp | `Express`  |
 
 
 
@@ -40,11 +31,11 @@ Class that is responsible for creating the application, registering routes with 
 ##### Returns
 
 
-- `Void`
+- `void`
 
 
 
-#### Server.addRoute(path, ControllerName) 
+#### Server.addRoute(path, ControllerName)
 
 Add a new route, with its controller and configuration
 
@@ -53,10 +44,10 @@ Add a new route, with its controller and configuration
 
 ##### Parameters
 
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| path | `String`  | The route path | &nbsp; |
-| ControllerName | `String`  | The name of controller class | &nbsp; |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| path | `String`  | The route path |
+| ControllerName | `String`  | The name of controller class |
 
 
 
@@ -77,8 +68,8 @@ Add a new route, with its controller and configuration
 
 ##### Parameters
 
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
 | port&#x3D;3001 | `number`  | The port for running the application | *Optional* |
 
 
@@ -87,7 +78,7 @@ Add a new route, with its controller and configuration
 ##### Returns
 
 
-- `Void`
+- `void`
 
 
 
@@ -109,7 +100,7 @@ Enable body json parser
 
 #### Server.enableFORM() 
 
-Enable body html parser
+Enable body form parser
 
 
 
@@ -132,10 +123,10 @@ Enable body html parser
 
 ##### Parameters
 
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
 | path&#x3D;null | `String`  | The path where apply the middleware(if path is null will apply to all routes) | *Optional* |
-| middleware | `Function`  | The middleware function. | &nbsp; |
+| middleware | `Function`  | The middleware function. |
 
 
 
@@ -159,7 +150,7 @@ Create the main app.
 ##### Returns
 
 
-- `Void`
+- `void`
 
 
 
