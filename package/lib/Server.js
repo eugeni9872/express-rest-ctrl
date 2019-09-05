@@ -8,18 +8,24 @@ let METHODS = ['get','post', 'put', 'delete', 'connect', 'options', 'trace', 'pa
 /**
  * @description Class that is responsible for creating the application, registering routes with their controllers.
  */
+
 class Server{
+
+    /**
+     * 
+     * @param {Express} ExpressApp
+     */
     constructor(ExpressApp){
         this.app = ExpressApp;
         hasControllersFolder()
     }
     /**
+     * @description Add a new route, with its controller and configuration
      * @param {String} path The route path
-     * @param {String} ControllerName The class that control this router
-     * @param {Object} config Object with config options
+     * @param {String} ControllerName The name of controller class
      * @returns Server
      */
-    addRoute(path, ControllerName, config={}){
+    addRoute(path, ControllerName){
         if(!this.app) {
             throw Error("The app was not created, call create method for initialize the app")
         }
@@ -54,7 +60,7 @@ class Server{
 
 
     /**
-     * @param {Number} port The port for listen requests
+     * @param {number} [port=3001] The port for running the application
      */
     run(port=3001) {
         this.app.listen(port, function(){
@@ -75,7 +81,7 @@ class Server{
 
 
     /**
-     * @description Enable body html parser
+     * @description Enable body form parser
      * @returns Server
      */
     enableFORM(){
@@ -84,11 +90,16 @@ class Server{
     }
 
     /**
-     * @param {String} path
-     * @param {Function} middleware
+     * @param {String} [path=null] The path where apply the middleware(if path is null will apply to all routes)
+     * @param {Function} middleware The middleware function.
      * @returns Server
      */
     setMiddleware(path, middleware) {
+
+        if(typeof middleware !== 'function') {
+            throw Error("The middleware is not a function")
+        }
+
         if(!path) {
             this.app.use(middleware)
         } else{
