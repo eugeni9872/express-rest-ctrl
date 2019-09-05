@@ -1,6 +1,6 @@
 # How to use
 
-After install the express-rest-controller you need to create the `controllers` folder inside you root project
+After install the express-rest-ctrl you need to create the `controllers` folder inside you root project
 
 ```
 $ mkdir controllers
@@ -38,7 +38,7 @@ app.run() // Run the server
 
 ```
 
-That's it, as you see we have only four lines of code, all of rest is managed by express-rest-controller
+That's it, as you see we have only four lines of code, all of rest is managed by express-rest-ctrl
 
 
 ### Response examples:
