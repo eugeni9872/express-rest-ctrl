@@ -29,11 +29,11 @@ class Server{
         if(!this.app) {
             throw Error("The app was not created, call create method for initialize the app")
         }
-        
+
         try {
             let Controller =  loadController(ControllerName)
             if(!Controller) {
-                throw Error("The " + Controller  + " controller not found inside controllers folder")
+                throw Error("The " + ControllerName  + " controller not found inside controllers folder")
             }
             Controller = new Controller()
             if(Controller.config) { // If the controller has config object to apply it
