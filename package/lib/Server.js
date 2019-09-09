@@ -29,7 +29,7 @@ class Server{
         if(!this.app) {
             throw Error("The app was not created, call create method for initialize the app")
         }
-        
+
         try {
             let Controller =  loadController(ControllerName)
             if(!Controller) {
