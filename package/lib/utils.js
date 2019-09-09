@@ -22,7 +22,7 @@ loadController = function(ControllerName) {
         let ctrl =  require(`${CTRL_FOLDER}/${ControllerName}.controller.js`)
         return ctrl
     } catch(ModuleError){
-        return false
+        throw Error("No controller " + ControllerName +' found')
     }
 }
 
