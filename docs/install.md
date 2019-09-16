@@ -2,7 +2,7 @@
 
 If you using yarn
 
-    yarn add express-rest-ctrl
+    yarn add express-rest-ctrl express
 If you using npm
 
-    npm i express-rest-ctrl
+    npm i express-rest-ctrl express
