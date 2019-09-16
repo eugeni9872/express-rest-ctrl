@@ -12,13 +12,15 @@ let METHODS = ['get','post', 'put', 'delete', 'connect', 'options', 'trace', 'pa
 class Server{
 
     /**
-     * 
+     *
      * @param {Express} ExpressApp
      */
     constructor(ExpressApp){
         this.app = ExpressApp;
         hasControllersFolder()
     }
+
+
     /**
      * @description Add a new route, with its controller and configuration
      * @param {String} path The route path
@@ -108,6 +110,15 @@ class Server{
         return this;
     }
 
+
+    /**
+     * @description Return the express instance
+     */
+    getApp(){
+        return this.app
+    }
+
+    
     /**
      * @description Create the main app.
      */
