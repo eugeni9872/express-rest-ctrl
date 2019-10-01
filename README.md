@@ -30,7 +30,7 @@ How you see the class has two methods, `get` and `post`, so let's registry this 
 
 Inside you server file, lets add this little code.
 ```
-const Server = require('express-rest-controller') //get the pk;
+const Server = require('express-rest-ctrl') //get the pk;
 const app = Server.create() // Let's create the server
 
 app.addRoute('/users', 'User') //Add the route and they controller
