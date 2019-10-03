@@ -1,6 +1,6 @@
 {
   "name": "express-rest-ctrl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Eugeni Bejan",
   "main": "index.js",
   "license": "MIT",
