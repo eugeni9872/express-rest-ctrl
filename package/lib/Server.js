@@ -1,14 +1,10 @@
 const express = require('express')
 const {hasControllersFolder, loadController, getName} = require('./utils')
-//Later we check if the controlelr has this methods
-//if the class implements this methods, we register the route
-// for example if the class has only get and post method, the resource will response only for post and get requests
-let METHODS = ['get','post', 'put', 'delete', 'connect', 'options', 'trace', 'path', 'head']
+
 
 /**
  * @description Class that is responsible for creating the application, registering routes with their controllers.
  */
-
 class Server{
 
     /**
