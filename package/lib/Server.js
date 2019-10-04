@@ -16,11 +16,10 @@ class Server{
      * @param {Express} ExpressApp
      */
     constructor(ExpressApp){
-        this.app = ExpressApp;
-        hasControllersFolder()
-        if(!this.app) {
+        if(!ExpressApp) {
             throw Error("The app was not created, call create method for initialize the app")
         }
+        this.app = ExpressApp;
     }
 
 
@@ -118,7 +117,7 @@ class Server{
         return this.app
     }
 
-    
+
     getMethods(){
         let methods = { 
             GET: 'get',
@@ -138,6 +137,7 @@ class Server{
      * @description Create the main app.
      */
     static create(){
+        hasControllersFolder() // Will throw a error if no folder
         let app = express()
         let _Server = new Server(app)
         return _Server
