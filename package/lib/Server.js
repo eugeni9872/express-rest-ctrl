@@ -1,5 +1,5 @@
 const express = require('express')
-const {hasControllersFolder, loadController} = require('./utils')
+const {hasControllersFolder, loadController, getName} = require('./utils')
 //Later we check if the controlelr has this methods
 //if the class implements this methods, we register the route
 // for example if the class has only get and post method, the resource will response only for post and get requests
@@ -18,6 +18,9 @@ class Server{
     constructor(ExpressApp){
         this.app = ExpressApp;
         hasControllersFolder()
+        if(!this.app) {
+            throw Error("The app was not created, call create method for initialize the app")
+        }
     }
 
 
@@ -27,32 +30,29 @@ class Server{
      * @param {String} ControllerName The name of controller class
      * @returns Server
      */
-    addRoute(path, ControllerName){
-        if(!this.app) {
-            throw Error("The app was not created, call create method for initialize the app")
-        }
-
+    addRoute(path, ControllerName, method='get'){
         try {
-            let Controller =  loadController(ControllerName)
-            if(!Controller) {
-                throw Error("The " + ControllerName  + " controller not found inside controllers folder")
-            }
-            Controller = new Controller()
+            let ctx = loadController(ControllerName)
+            let Controller = new ctx.ctrl()
             if(Controller.config) { // If the controller has config object to apply it
                 let {config} = Controller;
-                //See if middleware is set
-                if(config.middleware) {
+                if(config.middleware) { //See if middleware is set
                     if(Array.isArray(config.middleware) || typeof config.middleware === 'function') {
                         this.app.use(path, config.middleware)
                     }
                 }
             }
 
-            METHODS.forEach((method) => {
-                if(Controller[method]){
-                    this.app[method](path, Controller[method]) // Registry the path, method and they controller
-                }
-            })
+            //Check if the controller has the method
+            if(typeof Controller[ctx.method] !== 'function'){
+                throw Error(
+                    "The method " + ctx.method 
+                    + " was not found inside "
+                    + getName(ControllerName) 
+                    + ".controller.js"
+                )
+            }
+            this.app[method](path, Controller[ctx.method])
             return this;
         } catch (error) {
             throw error;
@@ -118,7 +118,7 @@ class Server{
         return this.app
     }
 
-    
+
     /**
      * @description Create the main app.
      */

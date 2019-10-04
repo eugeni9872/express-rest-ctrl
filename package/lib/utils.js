@@ -7,7 +7,7 @@ const CTRL_FOLDER = `${process.cwd()}/controllers/`
  * @returns void
  */
 hasControllersFolder = function() {
-    if(!fs.existsSync(process.cwd() + '/controllers')){
+    if(!fs.existsSync(CTRL_FOLDER)){
         throw Error("The controllers folder not exist inside root project.")
     }
 }
@@ -17,31 +17,45 @@ hasControllersFolder = function() {
  * @returns The controller class or false if no controller found
  */
 loadController = function(controllerName) {
+       let ctrl = findController(controllerName, getAllControllers(CTRL_FOLDER))
+       let ctrlClass = require(ctrl)
+       return {ctrl: ctrlClass, method: getMethodName(controllerName)}
+}
+
+var findController = function(ctrlName, controllers){
+    let ctrl = controllers.find(function(controller){
+        return getName(controller.name) === getName(ctrlName)
+    })
+    if(!ctrl){
+        throw Error("No controller named " + ctrlName + " was found")
+    }
+    return ctrl.path
+}
+
+var getName = function(fullCtrlName) {
     try {
-        let ctrl = undefined; //Controller to return
-        let controllers = walkSync(CTRL_FOLDER) //Get all files and they path from controller folder.
+        return fullCtrlName.split('::')[0].trim().toLowerCase()
+    } catch (error) {
+        throw Error("No controller named " + fullCtrlName + " was found")
+    }
+}
 
-        controllers.forEach(function(controller) {
-            let ctrlName = controller.name.split('.')[0] // Name of controller
-            if(controllerName.trim().toLowerCase() === ctrlName.trim().toLowerCase()) {//Math controller
-                ctrl =  require(controller.path+controller.name)
-            }
-        });
-
-        if(typeof ctrl === 'undefined'){
-            throw Error() //Throw errro if no controller found
-        }
-        return ctrl // Return the controller
-
-    } catch(ModuleError){
-        throw Error("No controller " + controllerName +' found')
+var getMethodName = function(fullCtrlName) {
+    try {
+        return fullCtrlName.split('::')[1].trim().toLowerCase()
+    } catch (error) {
+        throw Error("No controller named " + fullCtrlName + " was found")
     }
 }
 
 
+var makeFileName = function(file){
+    return file.split('.')[0].trim().toLowerCase()
+}
+
 // List all files in a directory in Node.js recursively in a synchronous fashion
 //https://gist.github.com/kethinov/6658166#gistcomment-1603591
-var walkSync = function(dir, filelist) {
+var getAllControllers = function(dir, filelist) {
     var fs = fs || require('fs'),
     files = fs.readdirSync(dir);
     filelist = filelist || [];
@@ -50,7 +64,7 @@ var walkSync = function(dir, filelist) {
         filelist = walkSync(dir + '/' + file, filelist);
       }
       else {
-        filelist.push({name: file, path:dir + '/'});
+        filelist.push({name: makeFileName(file), path:dir + '/'+ file});
       }
     });
     return filelist;
@@ -58,5 +72,6 @@ var walkSync = function(dir, filelist) {
 
 module.exports = {
     hasControllersFolder,
-    loadController
+    loadController,
+    getName
 }
