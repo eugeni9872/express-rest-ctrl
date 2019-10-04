@@ -118,6 +118,21 @@ class Server{
         return this.app
     }
 
+    
+    getMethods(){
+        let methods = { 
+            GET: 'get',
+            POST: 'post',
+            PUT: 'put',
+            DELETE: 'delete',
+            CONNECT: 'connect',
+            OPTIONS: 'options',
+            TRACE: 'trace',
+            PATH: 'path',
+            HEAD: 'head' 
+        }
+        return Object.freeze(methods)
+    }
 
     /**
      * @description Create the main app.
