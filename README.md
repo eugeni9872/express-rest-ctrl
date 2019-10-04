@@ -1,3 +1,14 @@
+# Install
+
+```
+yarn add express-rest-ctrl
+```
+or
+```
+npm install express-rest-ctrl
+```
+
+
 # How to use
 
 After install the express-rest-controller you need to create the `controllers` folder inside you root project
