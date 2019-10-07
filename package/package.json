@@ -4,14 +4,9 @@
   "author": "Eugeni Bejan",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
-    "start": "nodemon ./server/index.js"
-  },
   "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.1"
+    "express": "^4.17.1",
+    "yargs": "^14.0.0"
   },
   "description": "Express rest controller",
   "repository": {
