@@ -1,2 +1,2 @@
 const Server = require('./lib/Server')
-module.exports = Server
+module.exports = Server.create
