@@ -78,7 +78,7 @@ var getAllControllers = function(dir, filelist) {
     filelist = filelist || [];
     files.forEach(function(file) {
         if (fs.statSync(dir + '/' + file).isDirectory()) {
-            filelist = walkSync(dir + '/' + file, filelist);
+            filelist = getAllControllers(dir + '/' + file, filelist);
         } else {
             filelist.push({
                 name: makeFileName(file),
