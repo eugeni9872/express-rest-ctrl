@@ -16,6 +16,17 @@ class Server{
             throw Error("The app was not created, call create method for initialize the app")
         }
         this.app = ExpressApp;
+        this.METHODS = Object.freeze({ 
+            GET: 'get',
+            POST: 'post',
+            PUT: 'put',
+            DELETE: 'delete',
+            CONNECT: 'connect',
+            OPTIONS: 'options',
+            TRACE: 'trace',
+            PATH: 'path',
+            HEAD: 'head' 
+        })
     }
 
 
@@ -111,22 +122,6 @@ class Server{
      */
     getApp(){
         return this.app
-    }
-
-
-    getMethods(){
-        let methods = { 
-            GET: 'get',
-            POST: 'post',
-            PUT: 'put',
-            DELETE: 'delete',
-            CONNECT: 'connect',
-            OPTIONS: 'options',
-            TRACE: 'trace',
-            PATH: 'path',
-            HEAD: 'head' 
-        }
-        return Object.freeze(methods)
     }
 
     /**
