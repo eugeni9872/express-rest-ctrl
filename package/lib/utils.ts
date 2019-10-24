@@ -1,7 +1,8 @@
 const fs = require('fs');
 import {isObject} from './helpers';
 import './string.extensions';
-import {PathFile, AllControllersParams} from './interfances';
+import {Express} from 'express'
+import {PathFile, AllControllersParams, GetOrCreate} from './interfances';
 const CTRL_FOLDER = `${process.cwd()}/controllers/`;
 
 
@@ -89,9 +90,25 @@ var getAllControllers = function(dir: string, fileList: Array<[any]>): Array<any
     return fileList;
 };
 
+//TODO: Find the best way to declare the middleware
+var setControllerConfig = function(Controller: GetOrCreate, app: Express) {
+    if(Controller.config) { // If the controller has config object to apply it
+        let {config} = Controller;
+        if(config.middleware) { //See if middleware is set
+            if(Array.isArray(config.middleware) || typeof config.middleware === 'function') {
+                // app.use(path, config.middleware)
+            }
+        }
+    }
+
+    return app;
+}
+
+
 
 export {
     hasControllersFolder,
     loadController,
+    getMethodName,
     getName
 } 

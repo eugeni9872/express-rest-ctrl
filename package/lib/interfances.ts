@@ -32,4 +32,22 @@ export interface ServerType extends Express{
     [key:string]: any; // Add index signature
 }
 
+export interface ControllerType {
+    cls: object;
+    name: string;
+}
+export interface ControllerConfig {
+    middleware: any
+}
 
+export interface Controller {
+     middleware: any
+    [key:string]: any;
+}
+
+
+
+export interface GetOrCreate {
+    config: Controller;
+    [key:string]: any;
+}

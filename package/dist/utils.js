@@ -61,6 +61,7 @@ var getMethodName = function (fullCtrlName) {
         throw Error("The controller " + fullCtrlName + " has a invalid name");
     }
 };
+exports.getMethodName = getMethodName;
 var makeFileName = function (file) {
     return file.split('.')[0].trim().toLowerCase();
 };
@@ -82,5 +83,17 @@ var getAllControllers = function (dir, fileList) {
         }
     });
     return fileList;
+};
+//TODO: Find the best way to declare the middleware
+var setControllerConfig = function (Controller, app) {
+    if (Controller.config) { // If the controller has config object to apply it
+        let { config } = Controller;
+        if (config.middleware) { //See if middleware is set
+            if (Array.isArray(config.middleware) || typeof config.middleware === 'function') {
+                // app.use(path, config.middleware)
+            }
+        }
+    }
+    return app;
 };
 //# sourceMappingURL=utils.js.map
