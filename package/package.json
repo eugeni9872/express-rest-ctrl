@@ -1,8 +1,8 @@
 {
   "name": "express-rest-ctrl",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Eugeni Bejan",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/eugeni9872/express-rest-ctrl/issues"
   },
-  "homepage": "https://github.com/eugeni9872/express-rest-ctrl#readme"
+  "homepage": "https://github.com/eugeni9872/express-rest-ctrl#readme",
+  "devDependencies": {
+    "@types/node": "^12.11.5"
+  }
 }
