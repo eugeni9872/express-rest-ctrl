@@ -1,0 +1,11 @@
+{
+  "name": "expressrestctrl-example",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Eugeni Bejan",
+  "license": "MIT",
+  "dependencies": {
+    "express-rest-ctrl": "^1.0.5",
+    "faker": "^4.1.0"
+  }
+}
