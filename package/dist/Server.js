@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const utils_1 = require("./utils");
 const interfances_1 = require("./interfances");
+const utils_1 = require("./utils");
 /**
  * @description Class that is responsible for creating the application, registering routes with their controllers.
  */
@@ -15,6 +15,7 @@ class Server {
      * @param {Express} ExpressApp
      */
     constructor() {
+        this.currentControllers = [];
         this.METHODS = Server.METHODS;
         utils_1.hasControllersFolder(); // Will throw a error if no folder
         this.app = express_1.default();
@@ -30,29 +31,37 @@ class Server {
             if (!path || !controller) {
                 throw Error("The path or controller parameters are not defined");
             }
-            let ctx = utils_1.loadController(controller);
-            let Controller = new ctx.ctrl();
-            if (Controller.config) { // If the controller has config object to apply it
-                let { config } = Controller;
-                if (config.middleware) { //See if middleware is set
-                    if (Array.isArray(config.middleware) || typeof config.middleware === 'function') {
-                        this.app.use(path, config.middleware);
-                    }
-                }
-            }
+            let ctrlName = utils_1.getMethodName(controller);
+            let Controller = this.getOrCreateController(controller);
             //Check if the controller has the method
-            if (typeof Controller[ctx.method] !== 'function') {
-                throw Error("The method " + ctx.method
-                    + " was not found inside "
-                    + utils_1.getName(controller)
-                    + ".controller.js");
+            if (typeof Controller[ctrlName] !== 'function') {
+                throw Error("The method " + ctrlName +
+                    " was not found inside " +
+                    utils_1.getName(controller) +
+                    ".controller.js");
             }
-            this.app[method](path, Controller[ctx.method]);
+            this.app[method](path, Controller[ctrlName]);
             return this;
         }
         catch (error) {
             throw error;
         }
+    }
+    getOrCreateController(fullControllerName) {
+        let ctrlName = utils_1.getName(fullControllerName); //Get the controller name.
+        //Find the controller with they name.
+        let controller = this.currentControllers.find((ctrl) => utils_1.getName(ctrl.name) === ctrlName);
+        if (!controller) {
+            //We have no load this controller, so let's load it
+            let loadedController = utils_1.loadController(fullControllerName);
+            let controllerClass = new loadedController.ctrl();
+            this.currentControllers.push({
+                cls: controllerClass,
+                name: ctrlName
+            });
+            return controllerClass;
+        }
+        return controller.cls; //Here we have the controller, so return it
     }
     /**
      * @param {number} [port=3001] The port for running the application
