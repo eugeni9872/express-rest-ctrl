@@ -21,6 +21,7 @@ class User{
 }
 
 module.exports = User;
+//module.exports = {User} //Also works;
 ```
 
 >Inside controllers folder we can create subfolders and inside all the controllers with this structure `ControllerName.controller.js`
@@ -30,10 +31,10 @@ How you see the class has two methods, `get` and `post`, so let's registry this 
 
 Inside you server file, lets add this little code.
 ```
-const Server = require('express-rest-ctrl') //get the pk;
-const app = Server.create() // Let's create the server
 
-app.addRoute('/users', 'User') //Add the route and they controller
+const Erc = require('express-rest-ctrl'); //get the pk
+let app = new Erc();  //Create the server
+app.addRoute({path:'/users', controller: 'User::Index', method: app.METHODS.GET })  //Add a resource
 app.run() // Run the server
 
 ```
